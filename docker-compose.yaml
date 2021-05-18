@@ -10,6 +10,7 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
+      container_name: db
     
   wordpress:
     depends_on:
@@ -23,6 +24,17 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
+      Container_name: wordpress
+
+  web:
+    image: monsite
+    build: .
+    ports: 
+      - "8001:80"
+    container_name: web
+    volumes:
+      - ./www:/var/www
+      - ./vhost.conf:/etc/apache2/sites-enable/000-default.conf
 
 volumes:
   db_data: {}
